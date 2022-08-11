@@ -6,37 +6,38 @@ function getComputerChoice() {
 }
 
 
+let playerScore = 0;
+let computerScore = 0;
+
+
 // define a function named playRound which takes two parameters playerSelection and computerSelection
 // and returns a string that declares the winner of the round such as "You Lose! Paper beats Rock"
 // make playerSelection parameter case-insensitive
 function playRound(playerSelection, computerSelection) {
-//    let playerWin = 0;
-//    let computerWin = 0;
-    if ((playerSelection.toUpperCase() === "ROCK" && computerSelection.toUpperCase() === "PAPER") || 
-    (playerSelection.toUpperCase() === "PAPER" && computerSelection.toUpperCase() === "SCISSORS") || 
-    (playerSelection.toUpperCase() === "SCISSORS" && computerSelection.toUpperCase() === "ROCK")) {
-//        computerWin = computerWin + 1;
-        return `You lose this round! ${computerSelection} beats ${playerSelection}`; 
 
-    } else if ((playerSelection.toUpperCase() === "ROCK" && computerSelection.toUpperCase() === "SCISSORS") || 
+    if ((playerSelection.toUpperCase() === "ROCK" && computerSelection.toUpperCase() === "SCISSORS") || 
     (playerSelection.toUpperCase() === "PAPER" && computerSelection.toUpperCase() === "ROCK") || 
     (playerSelection.toUpperCase() === "SCISSORS" && computerSelection.toUpperCase() === "PAPER")) {
-//        playerWin = playerWin + 1;
+        playerScore = playerScore + 1;
         return `You win this round! ${playerSelection} beats ${computerSelection}`;
 
+    } else if ((playerSelection.toUpperCase() === "ROCK" && computerSelection.toUpperCase() === "PAPER") || 
+    (playerSelection.toUpperCase() === "PAPER" && computerSelection.toUpperCase() === "SCISSORS") || 
+    (playerSelection.toUpperCase() === "SCISSORS" && computerSelection.toUpperCase() === "ROCK")) {
+        computerScore = computerScore + 1;
+        return `You lose this round! ${computerSelection} beats ${playerSelection}`; 
+
     } else {
-//        playerWin = playerWin + 1;
-//        computerWin = computerWin + 1;
+        playerScore = playerScore + 0;
+        computerScore = computerScore + 0;
         return `It's a tie this round! ${playerSelection} ties with ${computerSelection}`;
     }
 }
 
 
 // define a function called game
-// call the playRound function which plays a 5 round game that keeps score
-// when a user inputs Rock, Paper or Scissors
-// declare a variable i and assign it to 0. Loop from 0 until 5. Increment i by 1 with every iteration
-// report a winner or loser at the end
+// call the playRound function inside of this one to play a 5 round game that keeps score 
+// and reports a winner or loser at the end
 
 function game() {
     for (let i = 0; i < 5; i++) {
@@ -44,6 +45,13 @@ function game() {
         let playerSelection = prompt("Please enter Rock, Paper, or Scissors").toUpperCase();
         const computerSelection = getComputerChoice().toUpperCase();
         console.log(playRound(playerSelection, computerSelection));
+    }
+    if (playerScore === computerScore) {
+        console.log(`It's a tie! Player: ${playerScore}; Computer: ${computerScore}`) 
+    } else if (playerScore > computerScore) {
+            console.log(`You won the game! Player: ${playerScore}; Computer: ${computerScore}`)
+    } else {
+        console.log(`You lost the game! Player: ${playerScore}; Computer: ${computerScore}`)
     }
 }
 
