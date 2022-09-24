@@ -1,13 +1,32 @@
 // define a function named getComputerChoice 
 // which randomly returns "Rock", "Paper", or "Scissors" when invoked
 function getComputerChoice() {
-    var shapes = ["ROCK", "PAPER", "SCISSORS"];
+    const shapes = ["ROCK", "PAPER", "SCISSORS"];
     return shapes[Math.floor(Math.random() * shapes.length)];
 }
 
 
 let playerScore = 0;
 let computerScore = 0;
+
+
+// Add an event listener to the buttons that call your playRound function with the correct 
+// playerSelection every time a button is clicked.
+let rockButton = document.getElementById("rock");
+rockButton.addEventListener("click", event => {
+    console.log("ROCK");
+})
+
+let paperButton = document.getElementById("paper");
+paperButton.addEventListener("click", event => {
+    console.log("PAPER");
+})
+
+let scissorsButton = document.getElementById("scissors");
+scissorsButton.addEventListener("click", event => {
+    console.log("SCISSORS");
+})
+
 
 
 // define a function named playRound which takes two parameters playerSelection and computerSelection
@@ -35,24 +54,25 @@ function playRound(playerSelection, computerSelection) {
 }
 
 
+
 // define a function called game
 // call the playRound function inside of this one to play a 5 round game that keeps score 
 // and reports a winner or loser at the end
 
-function game() {
-    for (let i = 0; i < 5; i++) {
-        // use prompt to get input from the user
-        let playerSelection = prompt("Please enter Rock, Paper, or Scissors").toUpperCase();
-        const computerSelection = getComputerChoice().toUpperCase();
-        console.log(playRound(playerSelection, computerSelection));
-    }
-    if (playerScore === computerScore) {
-        console.log(`It's a tie! Player: ${playerScore}; Computer: ${computerScore}`) 
-    } else if (playerScore > computerScore) {
-            console.log(`You won the game! Player: ${playerScore}; Computer: ${computerScore}`)
-    } else {
-        console.log(`You lost the game! Player: ${playerScore}; Computer: ${computerScore}`)
-    }
-}
+// function game() {
+//     for (let i = 0; i < 5; i++) {
+//         // use prompt to get input from the user
+//         let playerSelection = prompt("Please enter Rock, Paper, or Scissors").toUpperCase();
+//         const computerSelection = getComputerChoice().toUpperCase();
+//         console.log(playRound(playerSelection, computerSelection));
+//     }
+//     if (playerScore === computerScore) {
+//         console.log(`It's a tie! Player: ${playerScore}; Computer: ${computerScore}`) 
+//     } else if (playerScore > computerScore) {
+//             console.log(`You won the game! Player: ${playerScore}; Computer: ${computerScore}`)
+//     } else {
+//         console.log(`You lost the game! Player: ${playerScore}; Computer: ${computerScore}`)
+//     }
+// }
 
-game();
+// game();
