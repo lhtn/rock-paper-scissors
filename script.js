@@ -10,22 +10,33 @@ let playerScore = 0;
 let computerScore = 0;
 
 
+// Display results after pressing a button
+let changeTextRock = () => {
+    let results = document.getElementById("results");
+    results.textContent = "You selected ROCK";
+}
+
+let changeTextPaper = () => {
+    let results = document.getElementById("results");
+    results.textContent = "You selected PAPER";
+}
+
+let changeTextScissors = () => {
+    let results = document.getElementById("results");
+    results.textContent = "You selected SCISSORS";
+}
+
+
 // Add an event listener to the buttons that call your playRound function with the correct 
 // playerSelection every time a button is clicked.
 let rockButton = document.getElementById("rock");
-rockButton.addEventListener("click", event => {
-    console.log("ROCK");
-})
+rockButton.addEventListener("click", changeTextRock);
 
 let paperButton = document.getElementById("paper");
-paperButton.addEventListener("click", event => {
-    console.log("PAPER");
-})
+paperButton.addEventListener("click", changeTextPaper);
 
 let scissorsButton = document.getElementById("scissors");
-scissorsButton.addEventListener("click", event => {
-    console.log("SCISSORS");
-})
+scissorsButton.addEventListener("click", changeTextScissors);
 
 
 
