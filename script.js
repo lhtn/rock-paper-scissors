@@ -10,59 +10,50 @@ let playerScore = 0;
 let computerScore = 0;
 
 
-// Display results after pressing a button
-let changeTextRock = () => {
-    let results = document.getElementById("results");
-    results.textContent = "You selected ROCK";
-}
-
-let changeTextPaper = () => {
-    let results = document.getElementById("results");
-    results.textContent = "You selected PAPER";
-}
-
-let changeTextScissors = () => {
-    let results = document.getElementById("results");
-    results.textContent = "You selected SCISSORS";
-}
-
-
 // Add an event listener to the buttons that call your playRound function with the correct 
 // playerSelection every time a button is clicked.
+let results = document.getElementById("results");
 let rockButton = document.getElementById("rock");
-rockButton.addEventListener("click", changeTextRock);
-
 let paperButton = document.getElementById("paper");
-paperButton.addEventListener("click", changeTextPaper);
-
 let scissorsButton = document.getElementById("scissors");
-scissorsButton.addEventListener("click", changeTextScissors);
+
+rockButton.addEventListener("click", event => {
+    results.textContent = "You chose ROCK";
+});
+
+paperButton.addEventListener("click", event => {
+    results.textContent = "You chose PAPER";
+});
+
+scissorsButton.addEventListener("click", event => {
+    results.textContent = "You chose SCISSORS";
+});
 
 
 
 // define a function named playRound which takes two parameters playerSelection and computerSelection
 // and returns a string that declares the winner of the round such as "You Lose! Paper beats Rock"
 // make playerSelection parameter case-insensitive
-function playRound(playerSelection, computerSelection) {
+// function playRound(playerSelection, computerSelection) {
 
-    if ((playerSelection.toUpperCase() === "ROCK" && computerSelection.toUpperCase() === "SCISSORS") || 
-    (playerSelection.toUpperCase() === "PAPER" && computerSelection.toUpperCase() === "ROCK") || 
-    (playerSelection.toUpperCase() === "SCISSORS" && computerSelection.toUpperCase() === "PAPER")) {
-        playerScore = playerScore + 1;
-        return `You win this round! ${playerSelection} beats ${computerSelection}`;
+//     if ((playerSelection.toUpperCase() === "ROCK" && computerSelection() === "SCISSORS") || 
+//     (playerSelection.toUpperCase() === "PAPER" && computerSelection() === "ROCK") || 
+//     (playerSelection.toUpperCase() === "SCISSORS" && computerSelection() === "PAPER")) {
+//         playerScore = playerScore + 1;
+//         return `You win this round! ${playerSelection} beats ${computerSelection}`;
 
-    } else if ((playerSelection.toUpperCase() === "ROCK" && computerSelection.toUpperCase() === "PAPER") || 
-    (playerSelection.toUpperCase() === "PAPER" && computerSelection.toUpperCase() === "SCISSORS") || 
-    (playerSelection.toUpperCase() === "SCISSORS" && computerSelection.toUpperCase() === "ROCK")) {
-        computerScore = computerScore + 1;
-        return `You lose this round! ${computerSelection} beats ${playerSelection}`; 
+//     } else if ((playerSelection.toUpperCase() === "ROCK" && computerSelection() === "PAPER") || 
+//     (playerSelection.toUpperCase() === "PAPER" && computerSelection() === "SCISSORS") || 
+//     (playerSelection.toUpperCase() === "SCISSORS" && computerSelection() === "ROCK")) {
+//         computerScore = computerScore + 1;
+//         return `You lose this round! ${computerSelection} beats ${playerSelection}`; 
 
-    } else {
-        playerScore = playerScore + 0;
-        computerScore = computerScore + 0;
-        return `It's a tie this round! ${playerSelection} ties with ${computerSelection}`;
-    }
-}
+//     } else {
+//         playerScore = playerScore + 0;
+//         computerScore = computerScore + 0;
+//         return `It's a tie this round! ${playerSelection} ties with ${computerSelection}`;
+//     }
+// }
 
 
 
@@ -74,7 +65,7 @@ function playRound(playerSelection, computerSelection) {
 //     for (let i = 0; i < 5; i++) {
 //         // use prompt to get input from the user
 //         let playerSelection = prompt("Please enter Rock, Paper, or Scissors").toUpperCase();
-//         const computerSelection = getComputerChoice().toUpperCase();
+//         const computerSelection = getComputerChoice();
 //         console.log(playRound(playerSelection, computerSelection));
 //     }
 //     if (playerScore === computerScore) {
