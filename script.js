@@ -1,80 +1,96 @@
-// define a function named getComputerChoice 
-// which randomly returns "Rock", "Paper", or "Scissors" when invoked
+// find the buttons on html
+const rockBtn = document.getElementById("rockBtn");
+const paperBtn = document.getElementById("paperBtn");
+const scissorsBtn = document.getElementById("scissorsBtn");
+
+const roundResult = document.getElementById("roundResult");
+
+const gameWinner = document.getElementById("gameWinner");
+const playAgainBtn = document.getElementById("playAgainBtn");
+
+
+// keep score
+let playerScore = 0;
+let computerScore = 0;
+let rounds = 0;
+
+
+// player and computer selections
+let playerSelection;
+let computerSelection = getComputerChoice();
+
 function getComputerChoice() {
     const shapes = ["ROCK", "PAPER", "SCISSORS"];
     return shapes[Math.floor(Math.random() * shapes.length)];
 }
 
 
-let playerScore = 0;
-let computerScore = 0;
+// play a round when a user makes a selection
+function playRound() {
+    rockBtn.addEventListener("click", () => {
+        playerSelection = "ROCK";
+        computerSelection = getComputerChoice();
+        console.log(playerSelection, computerSelection)
+        compareSelection();
+        rounds++;
+        checkGameWinner();
+    });
+        
+    paperBtn.addEventListener("click", () => {
+        playerSelection = "PAPER";
+        computerSelection = getComputerChoice();
+        console.log(playerSelection, computerSelection)
+        compareSelection();
+        rounds++;
+        checkGameWinner();
+    });
+        
+    scissorsBtn.addEventListener("click", () => {
+        playerSelection = "SCISSORS";
+        computerSelection = getComputerChoice();
+        console.log(playerSelection, computerSelection)
+        compareSelection();
+        rounds++;
+        checkGameWinner();
+    });
+}
 
 
-// Add an event listener to the buttons that call your playRound function with the correct 
-// playerSelection every time a button is clicked.
-let results = document.getElementById("results");
-let rockButton = document.getElementById("rock");
-let paperButton = document.getElementById("paper");
-let scissorsButton = document.getElementById("scissors");
-
-rockButton.addEventListener("click", event => {
-    results.textContent = "You chose ROCK";
-});
-
-paperButton.addEventListener("click", event => {
-    results.textContent = "You chose PAPER";
-});
-
-scissorsButton.addEventListener("click", event => {
-    results.textContent = "You chose SCISSORS";
-});
-
-
-
-// define a function named playRound which takes two parameters playerSelection and computerSelection
-// and returns a string that declares the winner of the round such as "You Lose! Paper beats Rock"
-// make playerSelection parameter case-insensitive
-// function playRound(playerSelection, computerSelection) {
-
-//     if ((playerSelection.toUpperCase() === "ROCK" && computerSelection() === "SCISSORS") || 
-//     (playerSelection.toUpperCase() === "PAPER" && computerSelection() === "ROCK") || 
-//     (playerSelection.toUpperCase() === "SCISSORS" && computerSelection() === "PAPER")) {
-//         playerScore = playerScore + 1;
-//         return `You win this round! ${playerSelection} beats ${computerSelection}`;
-
-//     } else if ((playerSelection.toUpperCase() === "ROCK" && computerSelection() === "PAPER") || 
-//     (playerSelection.toUpperCase() === "PAPER" && computerSelection() === "SCISSORS") || 
-//     (playerSelection.toUpperCase() === "SCISSORS" && computerSelection() === "ROCK")) {
-//         computerScore = computerScore + 1;
-//         return `You lose this round! ${computerSelection} beats ${playerSelection}`; 
-
-//     } else {
-//         playerScore = playerScore + 0;
-//         computerScore = computerScore + 0;
-//         return `It's a tie this round! ${playerSelection} ties with ${computerSelection}`;
-//     }
-// }
+// compares playerSelection with computerSelection to determine who wins this round
+function compareSelection() {
+    switch (true) {
+        case (playerSelection === 'ROCK' && computerSelection === 'SCISSORS'):
+        case (playerSelection === 'PAPER' && computerSelection === 'ROCK'):
+        case (playerSelection === 'SCISSORS' && computerSelection === 'PAPER'):
+            roundResult.textContent = "You win this round";
+            break; 
+        case (playerSelection === 'ROCK' && computerSelection === 'PAPER'):
+        case (playerSelection === 'PAPER' && computerSelection === 'SCISSORS'):
+        case (playerSelection === 'SCISSORS' && computerSelection === 'ROCK'):
+            roundResult.textContent = "You lose this round";
+            break;
+        case (playerSelection === computerSelection):
+            roundResult.textContent = "It's a tie this round";
+            break;
+    }
+}
 
 
+// add points to playerScore and ComputerScore, then report a winner or loser at the end of the game
+function checkGameWinner() {
+    if (rounds === 5) {
+        rockBtn.disabled = true;
+        paperBtn.disabled = true;
+        scissorsBtn.disabled = true;
 
-// define a function called game
-// call the playRound function inside of this one to play a 5 round game that keeps score 
-// and reports a winner or loser at the end
+        if (playerScore === computerScore) {
+            gameWinner.textContent = `It's a tie! Player: ${playerScore}; Computer: ${computerScore}`;
+        } else if (playerScore > computerScore) {
+            gameWinner.textContent = `You won the game! Player: ${playerScore}; Computer: ${computerScore}`;
+        } else {
+            gameWinner.textContent = `You lost the game! Player: ${playerScore}; Computer: ${computerScore}`;
+        }
+    }
+}
 
-// function game() {
-//     for (let i = 0; i < 5; i++) {
-//         // use prompt to get input from the user
-//         let playerSelection = prompt("Please enter Rock, Paper, or Scissors").toUpperCase();
-//         const computerSelection = getComputerChoice();
-//         console.log(playRound(playerSelection, computerSelection));
-//     }
-//     if (playerScore === computerScore) {
-//         console.log(`It's a tie! Player: ${playerScore}; Computer: ${computerScore}`) 
-//     } else if (playerScore > computerScore) {
-//             console.log(`You won the game! Player: ${playerScore}; Computer: ${computerScore}`)
-//     } else {
-//         console.log(`You lost the game! Player: ${playerScore}; Computer: ${computerScore}`)
-//     }
-// }
-
-// game();
+playRound();
