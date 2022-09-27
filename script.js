@@ -1,23 +1,20 @@
-// find the buttons on html
+// find the buttons on html document
 const rockBtn = document.getElementById("rockBtn");
 const paperBtn = document.getElementById("paperBtn");
 const scissorsBtn = document.getElementById("scissorsBtn");
 
-const roundResult = document.getElementById("roundResult");
+const result = document.getElementById("result");
 
-const gameWinner = document.getElementById("gameWinner");
 const playAgainBtn = document.getElementById("playAgainBtn");
 
 
 // keep score
 let playerScore = 0;
 let computerScore = 0;
-let rounds = 0;
 
 
 // player and computer selections
 let playerSelection;
-let computerSelection = getComputerChoice();
 
 function getComputerChoice() {
     const shapes = ["ROCK", "PAPER", "SCISSORS"];
@@ -25,14 +22,13 @@ function getComputerChoice() {
 }
 
 
-// play a round when a user makes a selection
+// play a round when the player makes a selection
 function playRound() {
     rockBtn.addEventListener("click", () => {
         playerSelection = "ROCK";
         computerSelection = getComputerChoice();
         console.log(playerSelection, computerSelection)
         compareSelection();
-        rounds++;
         checkGameWinner();
     });
         
@@ -41,7 +37,6 @@ function playRound() {
         computerSelection = getComputerChoice();
         console.log(playerSelection, computerSelection)
         compareSelection();
-        rounds++;
         checkGameWinner();
     });
         
@@ -50,7 +45,6 @@ function playRound() {
         computerSelection = getComputerChoice();
         console.log(playerSelection, computerSelection)
         compareSelection();
-        rounds++;
         checkGameWinner();
     });
 }
@@ -59,18 +53,20 @@ function playRound() {
 // compares playerSelection with computerSelection to determine who wins this round
 function compareSelection() {
     switch (true) {
-        case (playerSelection === 'ROCK' && computerSelection === 'SCISSORS'):
-        case (playerSelection === 'PAPER' && computerSelection === 'ROCK'):
-        case (playerSelection === 'SCISSORS' && computerSelection === 'PAPER'):
-            roundResult.textContent = "You win this round";
+        case (playerSelection === "ROCK" && computerSelection === "SCISSORS"):
+        case (playerSelection === "PAPER" && computerSelection === "ROCK"):
+        case (playerSelection === "SCISSORS" && computerSelection === "PAPER"):
+            playerScore += 1;    
+            result.textContent = `You win this round! Player: ${playerScore}; Computer: ${computerScore}`;
             break; 
-        case (playerSelection === 'ROCK' && computerSelection === 'PAPER'):
-        case (playerSelection === 'PAPER' && computerSelection === 'SCISSORS'):
-        case (playerSelection === 'SCISSORS' && computerSelection === 'ROCK'):
-            roundResult.textContent = "You lose this round";
+        case (playerSelection === "ROCK" && computerSelection === "PAPER"):
+        case (playerSelection === "PAPER" && computerSelection === "SCISSORS"):
+        case (playerSelection === "SCISSORS" && computerSelection === "ROCK"):
+            computerScore += 1;
+            result.textContent = `You lose this round! Player: ${playerScore}; Computer: ${computerScore}`;
             break;
         case (playerSelection === computerSelection):
-            roundResult.textContent = "It's a tie this round";
+            result.textContent = `It's a tie! Player: ${playerScore}; Computer: ${computerScore}`;
             break;
     }
 }
@@ -78,19 +74,35 @@ function compareSelection() {
 
 // add points to playerScore and ComputerScore, then report a winner or loser at the end of the game
 function checkGameWinner() {
-    if (rounds === 5) {
+    if (playerScore >= 5 || computerScore >= 5) {
         rockBtn.disabled = true;
         paperBtn.disabled = true;
         scissorsBtn.disabled = true;
 
         if (playerScore === computerScore) {
-            gameWinner.textContent = `It's a tie! Player: ${playerScore}; Computer: ${computerScore}`;
+            result.textContent = `It's a tie! Player: ${playerScore}; Computer: ${computerScore}`;
         } else if (playerScore > computerScore) {
-            gameWinner.textContent = `You won the game! Player: ${playerScore}; Computer: ${computerScore}`;
+            result.textContent = `You won the game! Player: ${playerScore}; Computer: ${computerScore}`;
         } else {
-            gameWinner.textContent = `You lost the game! Player: ${playerScore}; Computer: ${computerScore}`;
+            result.textContent = `You lost the game! Player: ${playerScore}; Computer: ${computerScore}`;
         }
     }
 }
 
+
+// reset the game
+function playAgain() {
+    playAgainBtn.addEventListener("click", () => {
+        playerScore = 0;
+        computerScore = 0;
+        rockBtn.disabled = false;
+        paperBtn.disabled = false;
+        scissorsBtn.disabled = false;
+        result.textContent = '';
+    })
+}
+
+
 playRound();
+
+playAgain();
