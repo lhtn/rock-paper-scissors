@@ -5,3 +5,4 @@ This project helped me understand:
 * how to randomly select items from an array
 * the importance of scope in Javascript
 * how to use a loop
+* how to use event listeners 
